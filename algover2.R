@@ -22,13 +22,15 @@ alg.data <- alg.data[, c  ("index" ,"text", "id" ,"created_at", "VADER",
                            "Technology" ,  "Immutability" ,"Influence", 
                            "Application",   "Aversion",
                            "Year","topic" ) ]
+
+alg.data <- select(alg.data, -'topic')
   
   #Research question 1); descriptive
 
 
-alg.data %>% group_by(alg.data$topic, alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.data
+#alg.data %>% group_by(alg.data$topic, alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.data
 alg.data %>% group_by(alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.year
-alg.data %>% group_by(alg.data$topic, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.topic
+#alg.data %>% group_by(alg.data$topic, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.topic
 
 
 #Research question 2);
@@ -120,10 +122,7 @@ for (i in c(7:13)){
   alg.data %>% 
   filter(alg.data[,i]>=1)%>% 
   mutate(Topic = colnames(alg.data)[i])%>% 
-    sample_n(size = 100)%>% 
-    group_by( VADERclass, Topic) %>% 
-  
-  summarise(Sent = n()) ->listofdfs[[i]]
+    group_by( VADERclass, Topic) ->listofdfs[[i]]
 }
 bootstrap<- bind_rows(listofdfs)
 
@@ -188,7 +187,7 @@ for (i in 1:length(topics)){
     with(legend("topright", legend=c("positive", "neutral", "negative", "aversive"), col=c("black","green", "red"), lty=1:1, cex=0.8)) 
 }
 
-#----------------l?uft-----
+#----------------lauft-----
 
 ggplot(data=summ.topic, 
        aes(x=Topic, y=percent, fill=VADERclass)) + 
@@ -219,10 +218,40 @@ summ.year %>%
 
 
 
+library(boot)
+ReturnMean <- function(datav, sampleindices) 
+{
+  d <- datav[sampleindices] # we will use this for bootstrapping
+  return( mean(d) )
+}
+
+## Bootstrapping with 10000 replications
+results <- boot(data=as.vector(ObservedHeights), statistic=ReturnMean, R=10000)
+
+
+hist(results$t)
 
 
 
 
 
 
+# Bootstrap 95% CI for R-Squared
+library(boot)
+# function to obtain R-Squared from the data 
+rsq <- function(formula, data, indices) {
+  d <- data[indices,] # allows boot to select sample 
+  fit <- lm(formula, data=d)
+  return(summary(fit)$r.square)
+} 
+# bootstrapping with 1000 replications 
+results <- boot(data=mtcars, statistic=rsq, 
+                R=1000, formula=mpg~wt+disp)
+
+# view results
+results 
+plot(results)
+
+# get 95% confidence interval 
+boot.ci(results, type="bca")
 

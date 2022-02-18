@@ -88,9 +88,11 @@ library(readr)
 
 alg.data <- alg.data[, c  ("index" ,"text", "id" ,"created_at", "VADER",
                            "VADERclass", "Business" ,  "Social.Media", 
-                           "Technology" ,  "Immutability" ,"Influence", 
+                           "Technology" ,  "Immutxsability" ,"Influence", 
                            "Application",   "Aversion",
                            "Year","topic" ) ]
+
+alg.data <- select(alg.data, -'topic')
 
 ```
 
