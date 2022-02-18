@@ -125,11 +125,10 @@ for (i in c(7:13)){
     group_by( VADERclass, Topic) ->listofdfs[[i]]
 }
 bootstrap<- bind_rows(listofdfs)
+bootstrap %>% select(VADERclass,Year,Topic) -> bootstrap
 
-bootstrap<- 
-  bootstrap %>% 
-  group_by(Topic) %>% 
-  mutate(All = sum(Sent),percent=(100*Sent/All))
+
+
 
 
 #-------------------Plotting------------------
@@ -215,43 +214,4 @@ summ.year %>%
 summ.year %>%
   filter(VADERclass=="Aversive")%>%
   with(t.test(Sent, mu= 128, alternative = "greater"))
-
-
-
-library(boot)
-ReturnMean <- function(datav, sampleindices) 
-{
-  d <- datav[sampleindices] # we will use this for bootstrapping
-  return( mean(d) )
-}
-
-## Bootstrapping with 10000 replications
-results <- boot(data=as.vector(ObservedHeights), statistic=ReturnMean, R=10000)
-
-
-hist(results$t)
-
-
-
-
-
-
-# Bootstrap 95% CI for R-Squared
-library(boot)
-# function to obtain R-Squared from the data 
-rsq <- function(formula, data, indices) {
-  d <- data[indices,] # allows boot to select sample 
-  fit <- lm(formula, data=d)
-  return(summary(fit)$r.square)
-} 
-# bootstrapping with 1000 replications 
-results <- boot(data=mtcars, statistic=rsq, 
-                R=1000, formula=mpg~wt+disp)
-
-# view results
-results 
-plot(results)
-
-# get 95% confidence interval 
-boot.ci(results, type="bca")
 
