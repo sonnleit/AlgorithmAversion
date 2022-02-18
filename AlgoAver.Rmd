@@ -2,7 +2,9 @@
 title: "Algorithm Aversion"
 author: "Kopkow, Angermaier, Rohrer, Sonnleitner"
 date: "2/17/2022"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -16,7 +18,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r cars}
-summary(cars)
+#summary(cars)
 ```
 
 ## Including Plots
@@ -24,7 +26,7 @@ summary(cars)
 You can also embed plots, for example:
 
 ```{r pressure, echo=FALSE}
-plot(pressure)
+#plot(pressure)
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
@@ -40,6 +42,24 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 # Algortihm Aversion
 
+
+
+
+```{r cars4}
+
+
+```
+
+```{r cars5}
+
+```
+
+```{r cars6}
+
+```
+
+
+
 ## Motivation: Erwin
 
 
@@ -48,9 +68,185 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ## Data processing: Mathias
 
+```{r Libraries, echo=FALSE}
+library(tidyverse)
+library(tidytext)
+library(textdata)
+library(dplyr)
+library(vader)
+library(academictwitteR)
+library(data.table)
+library(readr)
+```
+
+```{r read and group data, echo=FALSE}
+ alg.data <- read_csv('algtweetsalgData.csv'
+                      )
+
+#write.csv(alg.data,"C:/Users/usr/Documents/algtweetsalgData.csv", row.names = TRUE)
+
+
+alg.data <- alg.data[, c  ("index" ,"text", "id" ,"created_at", "VADER",
+                           "VADERclass", "Business" ,  "Social.Media", 
+                           "Technology" ,  "Immutability" ,"Influence", 
+                           "Application",   "Aversion",
+                           "Year","topic" ) ]
+
+```
+
+
+```{r sorting, echo=FALSE}
+alg.data %>% group_by(alg.data$topic, alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.data
+#alg.data %>% group_by(alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.year
+#alg.data %>% group_by(alg.data$topic, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.topic
+
+
+alg.data %>% group_by(topic, Year, VADERclass) %>% summarise(Sent = n()) -> summ.data
+alg.data %>% group_by(Year, VADERclass) %>% summarise(Sent = n()) -> summ.year
+
+#adds percentage to yearwise DF
+summ.year<- 
+  summ.year %>% 
+  group_by(Year) %>% 
+  mutate(All = sum(Sent),percent=(100*Sent/All))
+
+
+```
+
+```{r cummulated}
+listofdfs <- list()
+
+#data group for cummulated dataframe
+
+for (i in c(7:13)){
+  alg.data %>% 
+    filter(alg.data[,i]>=1)%>% 
+    mutate(Topic = colnames(alg.data)[i], VADERclass=as.factor(VADERclass))%>% 
+    group_by(Year,Topic,VADERclass, .drop=FALSE)%>% 
+    summarise(Sent = n(), .groups = "drop") ->listofdfs[[i]]
+}
+summ.cumm <- bind_rows(listofdfs)
+
+
+#adds percentage to cummulated DF
+summ.cumm <- 
+  summ.cumm %>% 
+  group_by(Topic, Year) %>% 
+  mutate(All = sum(Sent),percent=(100*Sent/All))
+
+summ.cumm
+```
+
+```{r topic}
+#data group for topic oriented dataframe
+
+listofdfs <- list()
+
+for (i in c(7:13)){
+  alg.data %>% 
+    filter(alg.data[,i]>=1)%>% 
+    mutate(Topic = colnames(alg.data)[i])%>% 
+    group_by( VADERclass, Topic) %>% 
+    summarise(Sent = n()) ->listofdfs[[i]]
+}
+summ.topic <- bind_rows(listofdfs)
+
+#adds percentage to topicwise DF
+summ.topic<- 
+  summ.topic %>% 
+  group_by(Topic) %>% 
+  mutate(All = sum(Sent),percent=(100*Sent/All))
+
+
+head(summ.topic)
+```
+
+```{r cars0}
+
+```
+
+```{r wordgrouptest}
+#--------------Test wordgroups---------------------
+listofdfs <- list()
+
+
+for (i in c(7:13)){
+  alg.data %>% 
+    filter(alg.data[,i]>=1)%>% 
+    mutate(Topic = colnames(alg.data)[i])%>% 
+    sample_n(size = 20)%>% 
+  group_by( VADERclass, Topic)  ->listofdfs[[i]]
+}
+Wordgrouptest<- bind_rows(listofdfs)
+```
+
+
 
 ## Analysis &
 
+
+```{r bootstrap}
+#--------------Bootstraping---------------------
+listofdfs <- list()
+
+
+for (i in c(7:13)){
+  alg.data %>% 
+  filter(alg.data[,i]>=1)%>% 
+  mutate(Topic = colnames(alg.data)[i])%>% 
+    sample_n(size = 100)%>% 
+    group_by( VADERclass, Topic) %>% 
+  
+  summarise(Sent = n()) ->listofdfs[[i]]
+}
+bootstrap<- bind_rows(listofdfs)
+
+bootstrap<- 
+  bootstrap %>% 
+  group_by(Topic) %>% 
+  mutate(All = sum(Sent),percent=(100*Sent/All))
+```
+
+
+```{r plot topic year, echo=FALSE}
+#-----------------Topic-----------------------
+topics = c('Business','Social.Media','Technology','Influence','Application','Aversion')
+
+
+for (i in 1:length(topics)){
+  
+  summ.cumm %>% 
+    filter(Topic==topics[i]) %>%
+    with(plot(Year, Sent, main =topics[i],xlab = 'Analyzed ear', ylab = 'Tweets'))
+  summ.cumm %>% 
+    filter(Topic==topics[i]) %>% 
+    with(lines(unique(Year), Sent[VADERclass=='Positive'], col = 3) )
+  summ.cumm %>% 
+    filter(Topic==topics[i]) %>%
+    with(lines(unique(Year), Sent[VADERclass=='Neutral'], col = 1))
+  summ.cumm %>% 
+    filter(Topic==topics[i]) %>%
+    with(lines(unique(Year), Sent[VADERclass=='Negative'], col = 2))
+  summ.cumm %>% 
+    filter(Topic==topics[i]) %>%
+    with(lines(unique(Year), Sent[VADERclass=='Aversive'], col = 4))
+  summ.cumm %>% 
+    filter(Topic==topics[i]) %>%
+    with(legend("topright", legend=c("neutral", "positive", "negative", "aversive"), col=c("black","green", "red"), lty=1:1, cex=0.8)) 
+}
+```
+
+```{r topicplot,echo=FALSE}
+
+ggplot(data=summ.topic, 
+       aes(x=Topic, y=percent, fill=VADERclass)) + 
+  ggtitle("Topics 2010-2021") +
+  geom_bar(stat="identity", position=position_dodge(), colour="black")+
+  theme(axis.text=element_text(size=8),plot.title = element_text(color="Black", size=6, face="bold", hjust = 0.5),
+        legend.text=element_text(size=6),
+  axis.title=element_text(size=8,face="bold"))
+
+```
 
 ## Conclusion: Max
 
