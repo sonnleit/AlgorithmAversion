@@ -54,9 +54,7 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 
 ```
 
-```{r cars6}
 
-```
 
 
 
@@ -187,30 +185,55 @@ Wordgrouptest<- bind_rows(listofdfs)
 ## Analysis &
 
 
-```{r bootstrap, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r bootstrap, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 #--------------Bootstraping---------------------
 listofdfs <- list()
 
-
+## Sample of 100 tweets per topic
 for (i in c(7:13)){
   alg.data %>% 
-  filter(alg.data[,i]>=1)%>% 
-  mutate(Topic = colnames(alg.data)[i])%>% 
+    filter(alg.data[,i]>=1)%>% 
+    mutate(Topic = colnames(alg.data)[i])%>% 
+    mutate(Neutral = VADERclass=="Neutral")%>% 
+    mutate(Positive = VADERclass=="Positive")%>% 
+    mutate(Negative = VADERclass=="Negative")%>% 
+    mutate(Aversive = VADERclass=="Aversive")%>% 
     sample_n(size = 100)%>% 
-    group_by( VADERclass, Topic) %>% 
-  
-  summarise(Sent = n()) ->listofdfs[[i]]
+    group_by( VADERclass, Topic) ->listofdfs[[i]]
 }
 bootstrap<- bind_rows(listofdfs)
+bootstrap %>% select(Year,Topic,VADER,VADERclass,Neutral,Positive,Negative,Aversive) -> bootstrap
+bootstrap 
 
-bootstrap<- 
-  bootstrap %>% 
-  group_by(Topic) %>% 
-  mutate(All = sum(Sent),percent=(100*Sent/All))
+
+library(boot)
+
+
+
+bootstrap  -> ObservedHeight
+ObservedHeights <- ObservedHeight$VADER
+  
+mean(ObservedHeights)
+ReturnMean <- function(datav, sampleindices) 
+  
+{
+  d <- datav[sampleindices] # we will use this for bootstrapping
+  return( mean(d) )
+}
+
+## Bootstrapping with 10000 replications
+results <- boot(data=as.vector(ObservedHeights), statistic=ReturnMean, R=10000)
+
+
+hist(results$t)
+results
+
+
+
 ```
 
 
-```{r plot topic year, echo=FALSE}
+```{r plot topic year, eval=FALSE, include=FALSE}
 #-----------------Topic-----------------------
 topics = c('Business','Social.Media','Technology','Influence','Application','Aversion')
 
@@ -237,10 +260,10 @@ for (i in 1:length(topics)){
     with(legend("topright", legend=c("neutral", "positive", "negative", "aversive"), col=c("black","green", "red"), lty=1:1, cex=0.8)) 
 }
 ```
-
+###Progression over the years
 The diagram shows the percentage progression of the results of the sentiment analysis of tweets over the years 2010 to 2021. Values between 0.3 and -0.3 were classified as neutral. As positive between 0.3 and 1, as negative between -0.3 and -0.7 and finally as aversive values between -0.7 and -1. A total of 143271 tweets were analyzed. The fewest tweets were aversive and most were neutral since all tweets not evaluated in the sentiment analysis are classified as neutral. 
 ```{r yearplot, echo=FALSE, warning=FALSE}
-plot(summ.year$Year, summ.year$percent, main ="Yearwise",xlab = 'Analyzed year', ylab = 'Percent',cex.lab=1, cex.axis=1, cex.main=2, cex.sub=1)
+plot(summ.year$Year, summ.year$percent, main ="Progression over the years",xlab = 'Analyzed year', ylab = 'Percent',cex.lab=1, cex.axis=1, cex.main=2, cex.sub=1)
 lines(unique(summ.year$Year), summ.year$percent[summ.year$VADERclass=='Positive'], col = "green", lwd=2)
 lines(unique(summ.year$Year), summ.year$percent[summ.year$VADERclass=='Neutral'], col = "black", lwd=2)
 lines(unique(summ.year$Year), summ.year$percent[summ.year$VADERclass=='Negative'], col = "blue", lwd=2)
@@ -249,8 +272,11 @@ legend("topright", legend=c("positive", "neutral", "negative", "aversive"), col=
 ```
 
 Over time, the number of neutral tweets decreases. In 2010, there were 6934 tweets and 58.3%. In 2015, the most neutral tweets were posted with an absolute of 7641 tweets and 63.8% posted. In 2019 the fewest mi 5241 and 43.7% were posted. 2021 total 5254 which is 43.8%. The last 3 years the number of neutral tweets remained at the same level. 
+
 An increasing trend can be seen in the number of positive tweets. In 2010, there were 3827 tweets and 32.2%. In 2019, the most positive tweets were posted with absolute 4878 tweets and 40.7% posted. In 2011 the least mi 3171 and 26.7% were posted. 2021 total 4868 which is 40.6%. The last 3 years the number of positive tweets remained high, with a bump in 2020 with 3908 and 32.6%.
+
 Negative tweets show an increasing trend. In 2010, there were 1008 tweets and 8.5%. In 2020 the most positive tweets were posted with absolute 1867 tweets and 15.6% posted. In 2015 the least mi 918 and 7.7% were posted. In 2021 a total of 1429 which gives 11.9%. 
+
 The aversive tweets behave similarly to the negative tweets 2011 113 0.95% there were the fewest were 2014 105 and 0.88% with the most there were 2020 968 8.1% and 2021 there were 3.7% and 449 tweets.
 
 
@@ -266,8 +292,15 @@ ggplot(data=summ.topic,
   axis.title=element_text(size=8,face="bold"))
 
 ```
+```{r conf, echo=FALSE}
+# Bootstrap 95% CI for R-Squared
+boot.ci(results, type="bca")
+```
+
 Hier werden die verschieden Topics Applicattion Aversion Buisness Immutability Influeence Social Media und Technology verglichen 
-## Conclusion: Max
+
+
+## Conclusion: 
 
 
 ## Critique: Alina
