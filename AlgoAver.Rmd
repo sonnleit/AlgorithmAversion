@@ -1,6 +1,6 @@
 ---
 title: "Algorithm Aversion"
-author: "Kopkow, Angermaier, Rohrer, Sonnleitner"
+author: "Kopkow, Angermaier, Rohrer, Sonnleitner"
 date: "February 2022"
 output:
   html_document:
