@@ -48,18 +48,12 @@ alg.data$VADERclass[alg.data$VADER > 0.3] <- "Positive"
 alg.data$VADERclass[alg.data$VADER <= - 0.7] <- "Aversive"
 
 
-alg.data %>% write_csv("C:\\Users\\mathi\\OneDrive\\Dokumente\\Uni\\UniversitÃ¤t Graz\\CSS\\1_FachsemesterWS_2021_2022\\Foundation of CSS\\algdata_monthly.csv")
-
-
 pattern.b <- "business|money|entrepreneur|CEO|innovation|trading|trade"
 pattern.s <- "twitter|youtube|reddit|facebook|instagram|content|google"
 pattern.t <- "decision|support|software|program|coding|scrum|network|engineer"
-
-
 pattern.immu <- "immutable|persistent|stable|unchangeable|durable|continuity|unflexible"
 pattern.infl <- "influence|effect|impact|control|changeability|changeable|controllable"
 pattern.appl <- "apply|application|improvement|productive|pitch|set off"
-
 pattern.averse <- "aversion|aversive|hate|disgusting|disgust|disfavor|dislike"
 
 
@@ -206,6 +200,3 @@ legend("topright", legend=c("positive", "neutral", "negative", "aversive"), col=
 #-----------------Topic-----------------------
 
 
-#----------------läuft noch nicht!!!!!!!!!!-----
-ggplot(summ.topic, aes(x = summ.topic$Topic, y = summ.topic$percent))
-+ geom_point()
