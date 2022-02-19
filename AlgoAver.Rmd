@@ -1,70 +1,27 @@
 ---
 title: "Algorithm Aversion"
 author: "Kopkow, Angermaier, Rohrer, Sonnleitner"
-date: "2/17/2022"
+date: "February 2022"
 output:
-  html_document: default
-  pdf_document: default
+  html_document:
+    toc: true
+    toc_depth: 2
+  pdf_document:
+    toc: true
+    toc_depth: 2
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-#summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-#plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
-###### Header 6
-
-
-
-# Algortihm Aversion
 
 
 
 
-```{r cars4}
+# Motivation: Erwin
 
 
-```
-
-```{r cars5}
-
-```
+# Data retrieval & 
 
 
-
-
-
-## Motivation: Erwin
-
-
-## Data retrieval & 
-
-
-## Data processing: Mathias
+# Data processing: Mathias
 
 ```{r Libraries, message=FALSE, warning=FALSE, paged.print=FALSE}
 library(tidyverse)
@@ -76,6 +33,8 @@ library(academictwitteR)
 library(data.table)
 library(readr)
 ```
+
+used libraries
 
 ```{r read and group data, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
  alg.data <- read_csv('algtweetsalgData.csv'
@@ -182,7 +141,8 @@ Wordgrouptest<- bind_rows(listofdfs)
 
 
 
-## Analysis &
+# Analysis 
+a
 
 
 ```{r bootstrap, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
@@ -260,7 +220,10 @@ for (i in 1:length(topics)){
     with(legend("topright", legend=c("neutral", "positive", "negative", "aversive"), col=c("black","green", "red"), lty=1:1, cex=0.8)) 
 }
 ```
-###Progression over the years
+
+
+## Progression over the years
+
 The diagram shows the percentage progression of the results of the sentiment analysis of tweets over the years 2010 to 2021. Values between 0.3 and -0.3 were classified as neutral. As positive between 0.3 and 1, as negative between -0.3 and -0.7 and finally as aversive values between -0.7 and -1. A total of 143271 tweets were analyzed. The fewest tweets were aversive and most were neutral since all tweets not evaluated in the sentiment analysis are classified as neutral. 
 ```{r yearplot, echo=FALSE, warning=FALSE}
 plot(summ.year$Year, summ.year$percent, main ="Progression over the years",xlab = 'Analyzed year', ylab = 'Percent',cex.lab=1, cex.axis=1, cex.main=2, cex.sub=1)
@@ -279,7 +242,7 @@ Negative tweets show an increasing trend. In 2010, there were 1008 tweets and 8.
 
 The aversive tweets behave similarly to the negative tweets 2011 113 0.95% there were the fewest were 2014 105 and 0.88% with the most there were 2020 968 8.1% and 2021 there were 3.7% and 449 tweets.
 
-
+## Distribution of classes by topic
 
 ```{r topicplot,echo=FALSE}
 
@@ -300,13 +263,61 @@ boot.ci(results, type="bca")
 Hier werden die verschieden Topics Applicattion Aversion Buisness Immutability Influeence Social Media und Technology verglichen 
 
 
-## Conclusion: 
+# Conclusion: 
 
 
-## Critique: Alina
+##Critique: Alina
 
 
-## Github Repository
+# Github Repository
 
 https://github.com/sonnleit/AlgorithmAversion
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+#summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+#plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# Header 1
+## Header 2
+### Header 3
+#### Header 4
+##### Header 5
+###### Header 6
+
+
+
+
+
+
+
+```{r cars4}
+
+
+```
+
+```{r cars5}
+
+```
 
