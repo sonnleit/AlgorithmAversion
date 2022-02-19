@@ -24,7 +24,7 @@ library(boot)
 
 bootstrap  -> ObservedHeight
 ObservedHeights <- ObservedHeight$VADER
-  
+
 mean(ObservedHeights)
 ReturnMean <- function(datav, sampleindices) 
   
@@ -34,7 +34,7 @@ ReturnMean <- function(datav, sampleindices)
 }
 
 ## Bootstrapping with 10000 replications
-results <- boot(data=as.vector(ObservedHeights), statistic=ReturnMean, R=10000)
+results <- boot(data=as.vector(ObservedVaders), statistic=ReturnMean, R=10000)
 
 
 hist(results$t)
@@ -42,6 +42,28 @@ results
 
 # Bootstrap 95% CI for R-Squared
 boot.ci(results, type="bca")
+
+
+
+topics = c('Business','Social.Media','Technology','Immutability','Influence','Application','Aversion')
+
+for (i in 1:length(topics)){
+    
+    bootstrap %>%
+    filter(Topic==topics[i]) -> ObservedVader
+  ObservedVaders <- ObservedVader$VADER
+  
+  ## Bootstrapping with 10000 replications
+  results <- boot(data=as.vector(ObservedVaders), statistic=ReturnMean, R=10000)
+  
+  
+  hist(results$t)
+  results
+  
+  # Bootstrap 95% CI for R-Squared
+  boot.ci(results, type="bca")
+    
+}
 
 
 
