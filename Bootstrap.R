@@ -6,15 +6,27 @@ for (i in c(7:13)){
   alg.data %>% 
     filter(alg.data[,i]>=1)%>% 
     mutate(Topic = colnames(alg.data)[i])%>% 
+    mutate(Neutral = VADERclass=="Neutral")%>% 
+    mutate(Positive = VADERclass=="Positive")%>% 
+    mutate(Negative = VADERclass=="Negative")%>% 
+    mutate(Aversive = VADERclass=="Aversive")%>% 
     group_by( VADERclass, Topic) ->listofdfs[[i]]
 }
 bootstrap<- bind_rows(listofdfs)
-bootstrap %>% select(VADERclass,Year,Topic) -> bootstrap
-
+bootstrap %>% select(Year,Topic,VADER,VADERclass,Neutral,Positive,Negative,Aversive) -> bootstrap
+bootstrap 
 
 
 library(boot)
+
+ObservedHeights <- DataFrame$height
+
+bootstrap  -> ObservedHeight
+ObservedHeights <- ObservedHeight$VADER
+  
+mean(ObservedHeights)
 ReturnMean <- function(datav, sampleindices) 
+  
 {
   d <- datav[sampleindices] # we will use this for bootstrapping
   return( mean(d) )
@@ -39,9 +51,9 @@ rsq <- function(formula, data, indices) {
   fit <- lm(formula, data=d)
   return(summary(fit)$r.square)
 } 
-# bootstrapping with 1000 replications 
-results <- boot(data=mtcars, statistic=rsq, 
-                R=1000, formula=mpg~wt+disp)
+
+results <- boot(data=bootstrap, statistic=rsq, 
+                R=1000, formula='VADER')
 
 # view results
 results 
@@ -56,7 +68,7 @@ boot.ci(results, type="bca")
 
 # Creating Function to obtain R-Squared from the data
 r_squared <- function(formula, data, indices) {
-  val <- data[indices,] # selecting sample with boot 
+  val <- data[indices,4] # selecting sample with boot 
   fit <- lm(formula, data=val)
   return(summary(fit)$r.square)
 } 
