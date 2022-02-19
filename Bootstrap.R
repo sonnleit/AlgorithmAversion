@@ -22,8 +22,8 @@ library(boot)
 
 
 
-bootstrap  -> ObservedHeight
-ObservedHeights <- ObservedHeight$VADER
+bootstrap  -> ObservedVader
+ObservedVaders <- ObservedVader$VADER
 
 mean(ObservedHeights)
 ReturnMean <- function(datav, sampleindices) 
@@ -41,12 +41,12 @@ hist(results$t)
 results
 
 # Bootstrap 95% CI for R-Squared
-boot.ci(results, type="bca")
+confAll<- boot.ci(results, type="bca")
 
 
 
 topics = c('Business','Social.Media','Technology','Immutability','Influence','Application','Aversion')
-
+pinata <- list()
 for (i in 1:length(topics)){
     
     bootstrap %>%
@@ -58,13 +58,32 @@ for (i in 1:length(topics)){
   
   
   hist(results$t)
-  results
+ 
   
   # Bootstrap 95% CI for R-Squared
-  boot.ci(results, type="bca")
+  
+  #results
+  test<- boot.ci(results, type="bca")
+  pinata[[i]] <- test
     
 }
 
+confBusiness<- pinata[1]
+confSocialMedia<- pinata[2]
+confTechnology<- pinata[3]
+confImmutability<- pinata[4]
+confInfluence<- pinata[5]
+confApplication<- pinata[6]
+confAversion<- pinata[7]
+
+confAll
+confBusiness
+confSocialMedia
+confTechnology
+confImmutability
+confInfluence
+confApplication
+confAversion
 
 
 
