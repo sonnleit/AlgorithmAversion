@@ -10,6 +10,7 @@ for (i in c(7:13)){
     mutate(Positive = VADERclass=="Positive")%>% 
     mutate(Negative = VADERclass=="Negative")%>% 
     mutate(Aversive = VADERclass=="Aversive")%>% 
+    sample_n(size = 100)%>% 
     group_by( VADERclass, Topic) ->listofdfs[[i]]
 }
 bootstrap<- bind_rows(listofdfs)
@@ -19,7 +20,7 @@ bootstrap
 
 library(boot)
 
-ObservedHeights <- DataFrame$height
+
 
 bootstrap  -> ObservedHeight
 ObservedHeights <- ObservedHeight$VADER
@@ -38,8 +39,9 @@ results <- boot(data=as.vector(ObservedHeights), statistic=ReturnMean, R=10000)
 
 hist(results$t)
 
+boot.ci(results, type="bca")
 
-
+results
 
 
 

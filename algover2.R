@@ -122,6 +122,7 @@ for (i in c(7:13)){
   alg.data %>% 
   filter(alg.data[,i]>=1)%>% 
   mutate(Topic = colnames(alg.data)[i])%>% 
+    sample_n(size = 100)%>% 
     group_by( VADERclass, Topic) ->listofdfs[[i]]
 }
 bootstrap<- bind_rows(listofdfs)
