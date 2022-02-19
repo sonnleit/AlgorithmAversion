@@ -53,7 +53,7 @@ rsq <- function(formula, data, indices) {
 } 
 
 results <- boot(data=bootstrap, statistic=rsq, 
-                R=1000, formula='VADER')
+                R=100, formula=Positive~Negative)
 
 # view results
 results 
