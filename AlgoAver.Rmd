@@ -97,7 +97,7 @@ summ.cumm <-
 summ.cumm
 ```
 
-```{r topic}
+```{r topic, message=FALSE, warning=FALSE, paged.print=FALSE}
 #data group for topic oriented dataframe
 
 listofdfs <- list()
@@ -118,11 +118,11 @@ summ.topic<-
   mutate(All = sum(Sent),percent=(100*Sent/All))
 
 
-head(summ.topic)
+
 ```
 
-```{r cars0}
-
+```{r headsum topic}
+head(summ.topic)
 ```
 
 ```{r wordgrouptest}
@@ -165,9 +165,6 @@ for (i in c(7:13)){
 bootstrap<- bind_rows(listofdfs)
 bootstrap %>% select(Year,Topic,VADER,VADERclass,Neutral,Positive,Negative,Aversive) -> bootstrap
 bootstrap 
-
-
-library(boot)
 
 
 
@@ -245,6 +242,9 @@ The aversive tweets behave similarly to the negative tweets 2011 113 0.95% there
 
 ## Distribution of classes by topic
 
+This graph shows the different topics, Business, Social Media, Technology, Immutability, Influence, Application and Aversion as well as the percentage distribution cer VADER classes Aversive Negative Neutral and Positive.
+
+
 ```{r topicplot,echo=FALSE}
 
 ggplot(data=summ.topic, 
@@ -261,7 +261,7 @@ ggplot(data=summ.topic,
 boot.ci(results, type="bca")
 ```
 
-Hier werden die verschieden Topics Applicattion Aversion Buisness Immutability Influeence Social Media und Technology verglichen 
+The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive 20%. The least in Application here there are no negative tweets at all. 
 
 
 # Conclusion: 
