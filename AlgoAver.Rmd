@@ -33,6 +33,7 @@ library(academictwitteR)
 library(data.table)
 library(readr)
 library(boot)
+library(knitr)
 ```
 
 used libraries
@@ -123,6 +124,8 @@ summ.topic<-
 
 ```{r headsum topic}
 head(summ.topic)
+
+kable(summ.topic[1:5, ], caption = "Topic Table")
 ```
 
 ```{r wordgrouptest}
@@ -261,7 +264,7 @@ ggplot(data=summ.topic,
 boot.ci(results, type="bca")
 ```
 
-The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive 20%. The least in Application here there are no negative tweets at all. 
+The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive 20%. The least in Application here there are no negative tweets at all. In the topic Social media 28.9% of the tweets are positive 13.6% negative and 3.7% aversive. In total, there were also the most tweets in this topic with a total of 42020.
 
 
 # Conclusion: 
