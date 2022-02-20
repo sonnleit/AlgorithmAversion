@@ -10,7 +10,7 @@ library(readr)
   
 
 #load data here
-#alg.data <- read.csv("...\\algorithm_aversion_dataset.csv")
+#alg.data <- read.csv("...\\algtweetsalgData.csv")
 
 
 alg.data <- alg.data[, c  ("index" ,"text", "id" ,"created_at", "VADER",
