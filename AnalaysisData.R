@@ -43,17 +43,18 @@ alg.data %>% group_by(Year, VADERclass) %>% summarise(Sent = n()) -> summ.year
 
 listofdfs <- list()
 
-#data group for cummulated dataframe
+#-------------------Sample Validation------------------
+
+
+sample.test <- data.frame(matrix(ncol = 2, nrow = 0))
+colnames(sample.test) <- c("text", "topic")
 
 for (i in c(7:13)){
-  alg.data %>% 
-    filter(alg.data[,i]>=1)%>% 
-    mutate(Topic = colnames(alg.data)[i], VADERclass=as.factor(VADERclass))%>% 
-    group_by(Year,Topic,VADERclass, .drop=FALSE)%>% 
-    summarise(Sent = n(), .groups = "drop") ->listofdfs[[i]]
+  tmp <- subset(alg.data, index %in% sample(filter(alg.data, alg.data[,i] >= 1)$index, size = 20))
+  sample.test <- rbind(sample.test, tmp[c("text", "topic")])
 }
-summ.cumm <- bind_rows(listofdfs)
 
+sample.test
 
 
 
