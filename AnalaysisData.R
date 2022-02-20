@@ -12,9 +12,6 @@ library(readr)
   
 
 
-  #alg.data <- hier Daten einlesen
-
-#write.csv(alg.data,"C:/Users/msonn/Documents/algtweetsalgData.csv", row.names = TRUE)
 
 
 alg.data <- alg.data[, c  ("index" ,"text", "id" ,"created_at", "VADER",
