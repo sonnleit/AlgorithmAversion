@@ -1,6 +1,10 @@
-
-
-#----------------
+library(tidyverse)
+library(tidytext)
+library(dplyr)
+library(vader)
+library(academictwitteR)
+library(data.table)
+library(readr)
 
 
 #generic dataframe to store all tweets
