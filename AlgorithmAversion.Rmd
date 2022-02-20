@@ -15,13 +15,18 @@ output:
 
 
 
-# Motivation: Erwin
+# Motivation
 
 
 # Data retrieval
+Data retrieval and analysis was performed entirely in R using the respective framework RStudio. To obtain a sufficient amount of data over a period of 11 years, the “academictwitteR” package was used. Its function get_all_tweets() allows not only a search for Tweets containing a specific word, but also to set up a timespan, from where Tweets should be obtained.  In order to reduce seasonal effects, 1000 tweets were retrieved from each month on a random day from 2010 to 2021 included. The resulting dataset thus includes 143,721 tweets (on some days, not exactly 1000 tweets were found). 
+
+As text analysis tool, we decided to use the unsupervised “VADER” method, as it turned out in the lecture and one according exercise, that it has advantage in precision and reliability compared to other tools like “Syuzhet”. With its capabilities, we analyzed a sentiment value for every tweet, ranging from -1 to 1. 
+
+A further important resource is the “tidytext” library, especially the unnest_tokens() function in order to categorize tweets into various topics. After searching for words on the Merriam-Webster thesaurus, that do indicate the following topics: Business, Technology, Social Media, Immutability, Changeability, Application, Aversion. Those word patterns where used to identify a tweet. To do this, the text was disassembled, stopwords were erased in order to maintain better efficiency, and the remaining text was compared to the before initialised word patterns. 
 
 
-# Data processing: Mathias
+# Data processing
 
 ```{r Libraries, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 library(tidyverse)
@@ -36,7 +41,15 @@ library(boot)
 library(knitr)
 ```
 
-used libraries
+
+The value results from the VADER analysis was categorized into four sentiments. A value higher than 0.3 indicates a positive sentiment, between 0.3 and -0.3 a neutral sentiment, between -0.3 and -0.7 a negative sentiment and lower than 0.7 was considered an aversive sentiment. The treshold for the aversive category was set through trying various values, reading the corresponding tweets to find out, what threshold offers an accurate indicator for aversiveness. 
+The aformentioned word pattern comparison uses the number of indicator words in a tweet and saves that value in the respective topic column. With that information, we can than link the tweet to one specific topic. Thanks to this procedure, we are able to group the tweets into the existing topics, which is crucial for research question 2. Research question 1, the development over the years, could be answered by getting the year of a tweet’s timestamp, save it in a corresponding column and then group by those years. 
+
+The topic categorization needed to be further validated, as our group wanted to make sure, that tweets were ordered accordingly and the significance of such a content check is assured. In order to do so, 30 random tweets of every topic were read and than decided, whether they truly fit the topic. Especially the topics Business, Technology and Social Media were accurately assigned in all of the 30 tweets. The topics Immutability, Influence and Aversion had some ambiguities in a few tweets, but overall still mostly were realted to the topic. Only the topic aversion showed inconsitencies and expressed a different meaning as we intended it to be. 
+
+With all that information we have every tweet’s topic, sentiment, and year. This enables according filtering and grouping. As mentioned before, research question 1 is analyzed via grouping the years for the overall development. We then calculated the ratio of the four sentiments for every year and created a plot that shows the development via a line plot. To answer research question 2, grouping the topics was necessary. By calculating the percentage of every sentiment for every topic we could create a bar chart to indicate every topic’s sentiment ratio. A further interesting look was on the topical sentiment ratio over time. This can be seen as a combination of both research questions. We created a line plot over time but for every topic separately. This enables deeper insight if algorithm aversion developed differently for specific topics.  As we had to limit this report, the results can be found in our Git repository. 
+
+
 
 ```{r read and group data, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
  alg.data <- read_csv('algtweetsalgData.csv'
@@ -268,6 +281,8 @@ The topic Aversion has the most aversive tweets with 16.8% and 35% negative twee
 
 
 # Conclusion: 
+
+
 
 
 # Critique: Alina
