@@ -23,7 +23,7 @@ output:
 
 # Data processing: Mathias
 
-```{r Libraries, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r Libraries, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 library(tidyverse)
 library(tidytext)
 library(textdata)
@@ -38,7 +38,7 @@ library(knitr)
 
 used libraries
 
-```{r read and group data, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r read and group data, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
  alg.data <- read_csv('algtweetsalgData.csv'
                       )
 
@@ -56,7 +56,7 @@ alg.data <- select(alg.data, -'topic')
 ```
 
 
-```{r sorting, echo=FALSE}
+```{r sorting, include=FALSE}
 #alg.data %>% group_by(alg.data$topic, alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = #n())-> summ.data
 alg.data %>% group_by(alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.year
 #alg.data %>% group_by(alg.data$topic, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.topic
@@ -74,7 +74,7 @@ summ.year<-
 
 ```
 
-```{r cummulated}
+```{r cummulated, include=FALSE}
 listofdfs <- list()
 
 #data group for cummulated dataframe
@@ -98,7 +98,7 @@ summ.cumm <-
 summ.cumm
 ```
 
-```{r topic, message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r topic, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 #data group for topic oriented dataframe
 
 listofdfs <- list()
@@ -122,10 +122,7 @@ summ.topic<-
 
 ```
 
-```{r headsum topic}
 
-kable(summ.topic[1:5, ], caption = "Topic Table")
-```
 
 ```{r wordgrouptest}
 #--------------Test wordgroups---------------------
@@ -146,6 +143,7 @@ Wordgrouptest<- bind_rows(listofdfs)
 
 # Analysis 
 
+The following chapter covers the results of the sentiment analysis of tweets over the years 2010 to 2021 , for which we used the Vader tool.  Values between -0.3 and 0.3 were classified as neutral. Those between 0.3 and 1 were classified as positive, as negative between -0.3 and -0.7 and finally as aversive values between -0.7 and -1.   
 
 A Confidence interval based on 10000 bootstrap replications was calculated. It revealed that with a probability of 95% that the mean value of the sentiment analysis falls between 0.0766 and 0.1349.
 
@@ -226,7 +224,8 @@ for (i in 1:length(topics)){
 
 ## Progression over the years
 
-The diagram shows the percentage progression of the results of the sentiment analysis of tweets over the years 2010 to 2021. Values between 0.3 and -0.3 were classified as neutral. As positive between 0.3 and 1, as negative between -0.3 and -0.7 and finally as aversive values between -0.7 and -1. A total of 143271 tweets were analyzed. The fewest tweets were aversive and most were neutral since all tweets not evaluated in the sentiment analysis are classified as neutral. 
+The diagram shows the percentage progression of the results of the sentiment analysis of tweets over the years 2010 to 2021.A total of 143271 tweets were analyzed. Since all tweets that could not be evaluated in the sentiment analysis were classified as neutral, the highest number of tweets was yielded in the neutral category while the fewest tweets were classified as aversive.
+
 ```{r yearplot, echo=FALSE, warning=FALSE}
 plot(summ.year$Year, summ.year$percent, main ="Progression over the years",xlab = 'Analyzed year', ylab = 'Percent',cex.lab=1, cex.axis=1, cex.main=2, cex.sub=1)
 lines(unique(summ.year$Year), summ.year$percent[summ.year$VADERclass=='Positive'], col = "green", lwd=2)
@@ -236,17 +235,17 @@ lines(unique(summ.year$Year), summ.year$percent[summ.year$VADERclass=='Aversive'
 legend("topright", legend=c("positive", "neutral", "negative", "aversive"), col=c("green","black", "blue", "red"), lty=1:1,lwd=2, cex=.7)
 ```
 
-Over time, the number of neutral tweets decreases. In 2010, there were 6934 tweets and 58.3%. In 2015, the most neutral tweets were posted with an absolute of 7641 tweets and 63.8% posted. In 2019 the fewest mi 5241 and 43.7% were posted. 2021 total 5254 which is 43.8%. The last 3 years the number of neutral tweets remained at the same level. 
+Over time, the number of neutral tweets decreases. In 2010, there were 6934 neutral tweets which amounts to 58.3% of the yearly total. In 2015, the highest number of neutral tweets were posted, with an absolute of 7641 tweets posted (63.8% of the yearly total). In 2019, the lowest number of neutral tweets (5241, 43.7%) was posted. 2021 yielded similar numbers (5254, 43.8%). Over the last 3 years, the number of neutral tweets remained at the same level. 
 
-An increasing trend can be seen in the number of positive tweets. In 2010, there were 3827 tweets and 32.2%. In 2019, the most positive tweets were posted with absolute 4878 tweets and 40.7% posted. In 2011 the least mi 3171 and 26.7% were posted. 2021 total 4868 which is 40.6%. The last 3 years the number of positive tweets remained high, with a bump in 2020 with 3908 and 32.6%.
+An increasing trend can be seen in the number of positive tweets. In 2010, there were 3827 positive tweets, representing 32.2% of the yearly total. In 2011, the least amount of tweets 3171 (26.7%) were posted. In 2019, the most positive tweets were posted with absolute 4878 (40.7%) posted. Last year, 2021, a total of 4868 positive tweets were posted, which is 40.6% of the annual total. The number of positive tweets remained high over he last 3 years, with a dip in 2020 (3908 total, 32.6%).
 
-Negative tweets show an increasing trend. In 2010, there were 1008 tweets and 8.5%. In 2020 the most positive tweets were posted with absolute 1867 tweets and 15.6% posted. In 2015 the least mi 918 and 7.7% were posted. In 2021 a total of 1429 which gives 11.9%. 
+Negative tweets show an increasing trend. In 2010, there were 1008 negative tweets constituting 8.5% of the annual total. In 2020 the highest number of negative tweets were posted with absolute 1867 tweets (15.6%) posted. In 2015, the least amount of negative tweets was posted (918, 7.7%). In the last year analyzed, 2021, the number of negative tweets remained high with 1429 total, 11.9% of the annual. 
 
-The aversive tweets behave similarly to the negative tweets 2011 113 0.95% there were the fewest were 2014 105 and 0.88% with the most there were 2020 968 8.1% and 2021 there were 3.7% and 449 tweets.
+The number of aversive tweets behaves similarly to that of negative tweets. 2011 113 0.95% there were the fewest were 2014 105 and 0.88% with the most there were 2020 968 8.1% and 2021 there were 3.7% and 449 tweets.
 
 ## Distribution of classes by topic
 
-This graph shows the different topics, Business, Social Media, Technology, Immutability, Influence, Application and Aversion as well as the percentage distribution cer VADER classes Aversive Negative Neutral and Positive.
+This graph shows the different topics Business, Social Media, Technology, Immutability, Influence, Application and Aversion as well as the percentage distribution of the VADER classes Aversive, Negative, Neutral, and Positive.
 
 
 ```{r topicplot,echo=FALSE}
@@ -265,7 +264,7 @@ ggplot(data=summ.topic,
 boot.ci(results, type="bca")
 ```
 
-The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive 20%. The least in Application here there are no negative tweets at all. In the topic Social media 28.9% of the tweets are positive 13.6% negative and 3.7% aversive. In total, there were also the most tweets in this topic with a total of 42020.
+The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive 20%. The smallest amount occurs in Application; here, there are no aversive tweets at all. In the topic Social media, 28.9% of the tweets are positive, 13.6% negative and 3.7% aversive. In total, this was also the topic in which the most tweets occurred with a total of 42020.
 
 
 # Conclusion: 
@@ -277,52 +276,4 @@ The topic Aversion has the most aversive tweets with 16.8% and 35% negative twee
 # Github Repository
 
 https://github.com/sonnleit/AlgorithmAversion
-
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-#summary(cars)
-```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-#plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
-
-# Header 1
-## Header 2
-### Header 3
-#### Header 4
-##### Header 5
-###### Header 6
-
-
-
-
-
-
-
-```{r cars4}
-
-
-```
-
-```{r cars5}
-
-```
 
