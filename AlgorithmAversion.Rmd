@@ -3,17 +3,17 @@ title: "Algorithm Aversion"
 author: "Kopkow, Angermaier, Rohrer, Sonnleitner"
 date: "February 2022"
 output:
-  pdf_document:
+  html_document:
     toc: true
     toc_depth: 2
-  html_document:
+  pdf_document:
     toc: true
     toc_depth: 2
 ---
 
 
 
-
+\newpage
 
 # Motivation
 
@@ -250,6 +250,7 @@ for (i in 1:length(topics)){
 }
 ```
 
+\newpage
 
 ## Progression over the years
 
@@ -309,10 +310,18 @@ We did not find any significant aversion to algorithms on twitter. An increase i
 
 For the categories application, immutability and influencability the following could be found: That for influencability there are no aversive tweets. The highest number of positive tweets was found for apllication. The categories business, social media, technology and aversion were also examined. It was found that in the group aversion the most aversive and negative tweets were found. While this was to be expected, it also confirms that the sentiment analysis correctly assigns the tweets.
 
-
+Since widespread usage of algorithms and research of public opinion about them in  longitudinal analysis only emerged in recent years, not too much information about the chronological sequence in this area is available. Nevertheless our results show similarities to other studies with a longitudinal analysis of the public perception of technical and computational innovations: e.g. Artificial Intelligence (Fast and Horowitz, 2016)  and Internet of Things (Zubiaga et. al. 2018). Both studies, as well as our study show an increased polarization of positive and negative sentiments towards these technologies. Neutral positions are declining and mostly positive attitudes and expectations are increasing. But characteristic for a polarization of opinions, the negative sentiments are also increasing - although to a much lesser degree. This implies that in generell the positive effects of algorithm utilization and technical innovations are increasingly acknowledged but also certain risks and obstacles are increasingly discerned by the broader public opinion.
 
 # Critique
 
+Even though we could assess our research questions and could find differences on the one hand over the years and on the other hand between the assigned topics, one should consider that our findings are only descriptive nature and do not represent significant differences. This should be the next step going further into the data and analyze if the categories and years do really differ on a significant level.  This could underline our findings and would make them more reliable. Also, it would be a possibility to check if the used words form the Merriam-Webster thesaurus are exhaustive and represent the assigned topic in the foreseen way. To do this one could either do more research and compare the used words with ones from other studies or could consult stakeholders e.g. from the topics Business, Social Media and Technology.
+
+Apart from this one should consider that, as Dodds et al. (2015) could show, there is a positivity bias in the human language and because of that more tweets would be considered to be positive, even though the meant content would be a more negative. To correct the VADER classes towards the positivity bias one could check literature for a fixed value how much this positivity bias has an influence on tweets. This would make it possible to get closer to the true value of the tweet. If there is nothing like a corrective factor in the literature, it might be interesting to asses the influence of the positivity bias of the human language on tweets. 
+
+What also might be interesting to do is to compare the mean values of the last ten years to political or social incidents and if it correlates with the assed values. One of those incidents might be the Cambridge Analytica scandal in 2018, which seems possible because Hinds, Williams & Joinson (2020) reported after conducting interviews with 30 Facebook users that they have a simplified view and do tend to take a position and don’t stay neutral on this topic. Findings like these could explain why less tweets got coded as neutral in the last years and that there was this bigger drop in 2019.
+All in all, our research gives a good first overview how algorithms are discussed and viewed on Twitter over time as well towards different topics. But still further research could dig deeper into it and might tie further connections to other research fields. 
+
+\newpage
 
 # Biblography
 
@@ -324,7 +333,11 @@ Castelo, N., Bos, M. W. & Lehmann, D. R. (2019). Task-Dependent Algorithm Aversi
 
 Dietvorst, B. J,; Simmons, J. P. & Massey, C. (2016). Overcoming Algorithm Aversion: People will Use Imperfect Algorithms If They Can (Even Slightly) Modify Them. Management Science, 64 (3), 1155-1170. http://dx.doi.org/10.1287/mnsc.2016.2643
 
+Dodds, P. S., Clark, E. M., Desu, S., Frank, M. R., Reagan, A. J., Williams, J. R., . . . Danforth, C. M. (2015). Human language reveals a universal positivity bias. Proceedings of the National Academy of Sciences, 112 (8), 2389–2394. doi: 10.1073/pnas.1411678112
+
 Fast, E., Horvitz (2016). Long-Term Trends in the Public Perception of Artificial Intelligence. AAAI 2017: 963-969. https://arxiv.org/abs/1609.04904
+
+Hinds, J., Williams, E. J. & Joinson, A. N. (2020). “It wouldn’t happen to me”: Privacy concerns and perspectives following the cambridge analytica scandal. International Journal of Human-Computer Studies, 143. doi: https://doi.org/10.1016/j.ijhcs.2020.102498
 
 Zubiaga A., Procter R., Maple C. (2018) A longitudinal analysis of the public perception of the opportunities and challenges of the Internet of Things. PLoS ONE 13(12): e0209472. https://doi.org/10.1371/journal.pone.0209472
 
