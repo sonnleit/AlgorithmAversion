@@ -277,15 +277,25 @@ ggplot(data=summ.topic,
 boot.ci(results, type="bca")
 ```
 
-The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive 20%. The smallest amount occurs in Application; here, there are no aversive tweets at all. In the topic Social media, 28.9% of the tweets are positive, 13.6% negative and 3.7% aversive. In total, this was also the topic in which the most tweets occurred with a total of 42020.
+The topic Aversion has the most aversive tweets with 16.8% and 35% negative tweets, so there are more negative tweets in this topic than positive (20%). The smallest amount occurs in Application; here, there are no aversive tweets at all. In the topic Social media, 28.9% of the tweets are positive, 13.6% negative and 3.7% aversive. In total, this was also the topic in which the most tweets occurred with a total of 42020.
 
 
 # Conclusion: 
 
+In this chapter, the answers to the following questions are explained:
+
+1.	Is there a significant aversion against algorithm on twitter and has it changed over time (last 10 years)?
+
+2.	Are there differences in algorithm aversion on twitter in dependence of influenceability, immutability and setting of application.
+
+
+We did not find any significant aversion to algorithms on twitter. An increase in negative and aversive tweets can be observed. 
+
+For the categories application, immutability and influencability the following could be found: That for influencability there are no aversive tweets. The highest number of positive tweets was found for apllication. The categories business, social media, technology and aversion were also examined. It was found that in the group aversion the most aversive and negative tweets were found. While this was to be expected, it also confirms that the sentiment analysis correctly assigns the tweets.
 
 
 
-# Critique: Alina
+# Critique: 
 
 
 # Github Repository
