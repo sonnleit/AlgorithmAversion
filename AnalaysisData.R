@@ -1,7 +1,5 @@
 library(tidyverse)
 library(tidytext)
-library(textdata)
-library(rtweet)
 library(dplyr)
 library(vader)
 library(academictwitteR)
