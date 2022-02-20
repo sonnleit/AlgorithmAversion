@@ -44,8 +44,11 @@ results
 confAll<- boot.ci(results, type="bca")
 
 
+#Confidence interval for each topic
 
 topics = c('Business','Social.Media','Technology','Immutability','Influence','Application','Aversion')
+
+#initialise empty list
 pinata <- list()
 for (i in 1:length(topics)){
     

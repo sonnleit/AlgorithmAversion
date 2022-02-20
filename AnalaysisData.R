@@ -187,7 +187,7 @@ for (i in 1:length(topics)){
     with(legend("topright", legend=c("positive", "neutral", "negative", "aversive"), col=c("black","green", "red"), lty=1:1, cex=0.8)) 
 }
 
-#----------------lauft-----
+#----------------BarPlot for topics-----
 
 ggplot(data=summ.topic, 
        aes(x=Topic, y=percent, fill=VADERclass)) + 
