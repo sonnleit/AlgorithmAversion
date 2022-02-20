@@ -9,31 +9,20 @@ library(readr)
 
   
 
-
+#load data here
+#alg.data <- read.csv("...\\algorithm_aversion_dataset.csv")
 
 
 alg.data <- alg.data[, c  ("index" ,"text", "id" ,"created_at", "VADER",
                            "VADERclass", "Business" ,  "Social.Media", 
                            "Technology" ,  "Immutability" ,"Influence", 
                            "Application",   "Aversion",
-                           "Year","topic" ) ]
+                           "Year") ]
 
-alg.data <- select(alg.data, -'topic')
   
-  #Research question 1); descriptive
-
-
-#alg.data %>% group_by(alg.data$topic, alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.data
-alg.data %>% group_by(alg.data$Year, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.year
-#alg.data %>% group_by(alg.data$topic, alg.data$VADERclass) %>% summarise(Sent = n()) -> summ.topic
-
-
-#Research question 2);
 
 
 
-
-#-------------------
 
 #-------------completed----------
 alg.data %>% group_by(topic, Year, VADERclass) %>% summarise(Sent = n()) -> summ.data
