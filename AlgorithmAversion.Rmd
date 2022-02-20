@@ -17,6 +17,20 @@ output:
 
 # Motivation
 
+The utilization of algorithms in a growing number of areas of our everyday lives and their impact on them demonstrates that the topic cannot be elaborated solely from a data science point of view but needs to be considered from a broad interdisciplinary perspective. Psychological, sociological, economical and judicial implications and different methodical approaches need to be integrated. In our current study we want to complement the current research on algorithm aversion with an additional methodical approach in terms of a twitter sentiment analysis.
+Algorithm aversion either gets defined as a “general resistance to algorithmic judgment” or general negative reaction towards an erring algorithm (Berger et al., 2021). Recent studies suggests that algorithm aversion is among other things less prevalent under the following circumstances:
+
+The results of Dietvorst et al. (2016) confirmed the substantial influence of perceived control over an algorithm's output on the utilization of that algorithm. Participants who were allowed to correct the algorithm's outcame were far more likely to use the algorithm in their forecast. Furthermore it increases the satisfaction with the whole process. Interestingly their results showed that the amount of how much the participants were allowed to correct the algorithm has no effect on the utilization of the algorithm or the satisfaction of the participants.
+
+Berger et al. (2021) found that there is no generell preference of unfamiliar human support over unfamiliar algorithmic support, but experiencing both of them erring leads to preference of human over algorithmic advisors. The reason for this is the implicit assumption of most humans that humans can learn from their mistakes whereas algorithms can not. The results of Berger et al. indicate that explicitly showing an algorithm's ability to learn counteracts algorithm aversion. Castelo et al. (2019) explored under which circumstances and in which domains of application humans are more reluctant to use algorithmic aids. Despite the fact that algorithms often outperform humans in many domains, users trust algorithms even less in subjective tasks and in domains where subjective human expert judgment is perceived as superior to algorithmic judgment. As already partly mentioned, human decision makers have a lot of expectations and prejudices on what an algorithm can and should do, which prevent them from using them. Burton et al. (2020) postulate that development of algorithmic literacy in decision makers will lead to reduced aversion against them.
+To explore if  there is a general aversion against algorithms on twitter and if growing algorithmic literacy in some areas decreases this aversion, we came up with our first research question:
+
+Is there a significant aversion against algorithms on twitter and has it changed over time (last 10 years)?
+
+To explore the impacts of perceived control, the algorithm’s ability to improve and the areas of application on algorithm aversion, we came up with our second research question:
+
+Are there differences in algorithm aversion in dependence of influenceability, immutability and setting of application?
+
 
 # Data retrieval
 Data retrieval and analysis was performed entirely in R using the respective framework RStudio. To obtain a sufficient amount of data over a period of 11 years, the “academictwitteR” package was used. Its function get_all_tweets() allows not only a search for Tweets containing a specific word, but also to set up a timespan, from where Tweets should be obtained.  In order to reduce seasonal effects, 1000 tweets were retrieved from each month on a random day from 2010 to 2021 included. The resulting dataset thus includes 143,721 tweets (on some days, not exactly 1000 tweets were found). 
