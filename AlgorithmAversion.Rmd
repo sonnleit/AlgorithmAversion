@@ -63,6 +63,8 @@ The topic categorization needed to be further validated, as our group wanted to 
 
 With all that information we have every tweet’s topic, sentiment, and year. This enables according filtering and grouping. As mentioned before, research question 1 is analyzed via grouping the years for the overall development. We then calculated the ratio of the four sentiments for every year and created a plot that shows the development via a line plot. To answer research question 2, grouping the topics was necessary. By calculating the percentage of every sentiment for every topic we could create a bar chart to indicate every topic’s sentiment ratio. A further interesting look was on the topical sentiment ratio over time. This can be seen as a combination of both research questions. We created a line plot over time but for every topic separately. This enables deeper insight if algorithm aversion developed differently for specific topics.  As we had to limit this report, the results can be found in our Git repository. 
 
+During our research we increasingly became interested in further topics, that indicated own distributions in detecting algorithm aversion. Therefore we enhanced research question 2 by analyzing the fields of Business, Technology and Social Media.
+
 
 
 ```{r read and group data, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
@@ -309,7 +311,23 @@ For the categories application, immutability and influencability the following c
 
 
 
-# Critique: 
+# Critique
+
+
+# Biblography
+
+Berger, B., Adam, M., Rühr, A. et al. (2021). Watch Me Improve - Algorithm Aversion and Demonstrating the Ability to Learn, Business & Information Systems Engineering 63(1):55–68
+
+Burton, J. W., Stein, M-K., Jensen, T. B. (2020). A systematic review of algorithm aversion in augmented decision making. Journal of Behaviour and Decision Making, 33, 220-239. https://doi.org/10.1002/bdm.2155
+
+Castelo, N., Bos, M. W. & Lehmann, D. R. (2019). Task-Dependent Algorithm Aversion. Journal of Marketing Research, 56(5), 809–825. https://doi.org/10.1177/0022243719851788
+
+Dietvorst, B. J,; Simmons, J. P. & Massey, C. (2016). Overcoming Algorithm Aversion: People will Use Imperfect Algorithms If They Can (Even Slightly) Modify Them. Management Science, 64 (3), 1155-1170. http://dx.doi.org/10.1287/mnsc.2016.2643
+
+Fast, E., Horvitz (2016). Long-Term Trends in the Public Perception of Artificial Intelligence. AAAI 2017: 963-969. https://arxiv.org/abs/1609.04904
+
+Zubiaga A., Procter R., Maple C. (2018) A longitudinal analysis of the public perception of the opportunities and challenges of the Internet of Things. PLoS ONE 13(12): e0209472. https://doi.org/10.1371/journal.pone.0209472
+
 
 
 # Github Repository
